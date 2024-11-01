@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu API Documentation</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+        h2, h3 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Restaurant Menu API Documentation</h1>
+    
+    <h2>Introduction</h2>
+    <p>The Restaurant Menu API allows you to retrieve and manage the daily menu data for multiple restaurants. It supports operations like getting the current menu, updating the price of menu items, adding new menu items, and deleting restaurants from the system.</p>
+
+    <h2>Base URL</h2>
+    <pre>https://site40.webte.fei.stuba.sk/food/api.php</pre>
+    
+    <h2>Endpoints</h2>
+    
+    <h3>Get Menu Data</h3>
+    <p><strong>Method:</strong> GET</p>
+    <p>Returns the menu data for all restaurants in JSON format.</p>
+    <pre>
+{
+    "free-food": [
+        {
+            "day": "Monday",
+            "menu": [
+                {
+                    "food": "Chicken soup",
+                    "price": "4.50"
+                },
+                ...
+            ]
+        },
+        ...
+    ],
+    ...
+}
+    </pre>
+
+    <h3>Update Price</h3>
+    <p><strong>Method:</strong> PUT or POST</p>
+    <p>Updates the price of a specific menu item for a restaurant and returns the updated menu data.</p>
+    <p><strong>Request Body:</strong></p>
+    <pre>
+{
+    "action": "update_price",
+    "restaurant": "free-food",
+    "day": "Monday",
+    "menu_item_number": 0,
+    "new_price": "4.00"
+}
+    </pre>
+
+    <h3>Add Menu Item</h3>
+    <p><strong>Method:</strong> POST</p>
+    <p>Adds a new menu item to all days of the week for a specific restaurant and returns the updated menu data.</p>
+    <p><strong>Request Body:</strong></p>
+    <pre>
+{
+    "action": "add_item",
+    "restaurant": "free-food",
+    "new_item": "New dish",
+    "new_price": "5.50"
+}
+    </pre>
+
+    <h3>Delete Restaurant</h3>
+    <p><strong>Method:</strong> DELETE</p>
+    <p>Deletes a restaurant and its menu data from the system.</p>
+    <p><strong>Request Body:</strong></p>
+    <pre>
+{
+    "action": "delete_restaurant",
+    "restaurant": "free-food"
+}
+    </pre>
+
+    <h2>Error Handling</h2>
+    <p>In case of an error, the API will return an HTTP status code along with a JSON object containing a message describing the error. Below are some examples of error responses:</p>
+    <h3>404 Not Found</h3>
+<p>If no menu data is found for any restaurant, the API will return a 404 status code.</p>
+<pre>
+    {
+        "message": "No data found."
+        }
+        </pre>
+        <h3>400 Bad Request</h3>
+<p>If the request is malformed or missing required parameters, the API will return a 400 status code.</p>
+<pre>
+    <h3>400 Bad Request</h3>
+    <p>If the request is malformed or missing required parameters, the API will return a 400 status code.</p>
+    <pre>
+        {
+            "message": "Invalid request."
+            }
+            </pre>
+            <h2>Notes</h2>
+<ul>
+    <li>The API does not require any authentication at the moment. However, it is recommended to implement some form of authentication to protect the endpoints that modify the menu data (PUT, POST, DELETE).</li>
+    <li>The menu items are represented by zero-based indices. For example, the first menu item of the day has an index of 0, the second item has an index of 1, and so on.</li>
+</ul>
+</body>
+</html>    
